@@ -49,9 +49,9 @@ public class ListenerLauncher {
             public void changed(ObservableValue observable, Object oldValue, Object newValue) {
                 switch (joueur.getNumeroZone()){
                     case "0":
-                        if(joueur.isCollinding(9*16, 16) && !joueur.getListeQuetes().getQueteActuelle().getTitre().startsWith("Chapitre 0"))  {
-                        	joueur.getConsole().afficherJeuHacked();
-                        	//terrainVue.loadMap("1", 36*16, 3*16);
+                        if(joueur.isCollinding(9*16, 16) && ( joueur.getNombrePas()==5000 || !joueur.getListeQuetes().getQueteActuelle().getTitre().startsWith("Chapitre 0") )) {
+                        	//joueur.getConsole().afficherJeuHacked();
+                        	terrainVue.loadMap("1", 36*16, 3*16);
                         }
                         break;
                     case "1":
@@ -89,7 +89,6 @@ public class ListenerLauncher {
         player.translateYProperty().addListener(c);
     }
 
-
     public void initCameraListener(Pane gamePane){
         joueur.getxProperty().addListener((obse,old,nouv)->{
             //si le joueur est trop pres du bord de la map, le déplacement ne se fait pas.
@@ -101,7 +100,6 @@ public class ListenerLauncher {
                 gamePane.setLayoutY(-(int)nouv+360);
         });
     }
-
 
     public void initInventaireListener(Label nbGoldLabel, ItemDescriptionSwitcher itemsDescriptionLoader,Label nbMinerai){
         nbGoldLabel.textProperty().bind(joueur.getInventaire().nbrOrProperty().asString());
