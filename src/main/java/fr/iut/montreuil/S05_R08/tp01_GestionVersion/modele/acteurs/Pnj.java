@@ -127,7 +127,7 @@ public class Pnj extends Acteur {
                 lines.add("Il a oublié son chapeau! Ya! ");
                 break;
             case "panneau":
-                lines.add("Trésor très précieux, ne pas toucher");
+                lines.add("Pas de stress y'a Point S");
                 lines.add("Dur dur la vie de panneau...");
                 lines.add("Le 'Une pièce'... Il existe!");
                 break;
