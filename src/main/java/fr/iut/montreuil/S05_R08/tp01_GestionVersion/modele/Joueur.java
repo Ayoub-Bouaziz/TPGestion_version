@@ -22,13 +22,14 @@ public class Joueur {
     private Console console;
     private IntegerProperty xProperty = new SimpleIntegerProperty(0);
     private IntegerProperty yProperty = new SimpleIntegerProperty(0);
-    private static int vitesseDeDeplacement = 2 ;
+    private static int vitesseDeDeplacement = 1 ;
     private StringProperty direction = new SimpleStringProperty();
     private Terrain zone;
     private Inventaire inventaire;
     private IntegerProperty maxHP = new SimpleIntegerProperty();
     private IntegerProperty niveau;
     private QuestLine listeQuetes;
+    private int nombrePas;
 
     public Joueur(int x, int y, Terrain zone) {
         arme = new Gourdin(); // Le joueur commence avec un gourdin
@@ -39,6 +40,7 @@ public class Joueur {
         hp.setValue(10);
         maxHP.setValue( hp.getValue());
         armeDistance = null;
+        this.nombrePas=0;
         niveau = new SimpleIntegerProperty(1);
         this.inventaire = new Inventaire();
         this.listeQuetes = new QuestLine(this);
@@ -76,6 +78,9 @@ public class Joueur {
         this.hp.setValue(hp);
     }
 
+    public int getNombrePas() {
+        return nombrePas;
+    }
     public IntegerProperty niveauProperty() {
         return niveau;
     }
@@ -139,23 +144,28 @@ public class Joueur {
 
     public Inventaire getInventaire() { return this.inventaire; }
 
+
     public void moveUp () {
         this.yProperty.setValue(this.yProperty.getValue()-vitesseDeDeplacement);
+        this.nombrePas+=1;
         direction.setValue("up");
     }
 
     public void moveDown () {
         this.yProperty.setValue(this.yProperty.getValue()+vitesseDeDeplacement);
+        this.nombrePas+=1;
         direction.setValue("down");
     }
 
     public void moveRight () {
         this.xProperty.setValue(this.xProperty.getValue()+vitesseDeDeplacement);
+        this.nombrePas+=1;
         direction.setValue("right");
     }
 
     public void moveLeft () {
         this.xProperty.setValue(this.xProperty.getValue()-vitesseDeDeplacement);
+        this.nombrePas+=1;
         direction.setValue("left");
     }
 
@@ -237,8 +247,6 @@ public class Joueur {
         }
         return true;
     }
-
-
 
     public void attaquerEnnemis() {
         for (int i = 0; i <this.zone.getListeActeurs().size() ; i++) {
